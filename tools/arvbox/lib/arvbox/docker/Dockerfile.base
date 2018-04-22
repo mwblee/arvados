@@ -71,7 +71,7 @@ RUN set -e && \
  curl -L -f ${PJSURL} | tar -C /usr/local -xjf - && \
  ln -s ../phantomjs-${PJSVERSION}-linux-x86_64/bin/phantomjs /usr/local/bin
 
-RUN pip install -U setuptools
+RUN pip install -U setuptools &&  pip install --upgrade pip
 
 ENV NODEVERSION v6.11.4
 
@@ -90,7 +90,7 @@ ADD crunch-setup.sh gitolite.rc \
     keep-setup.sh common.sh createusers.sh \
     logger runsu.sh waitforpostgres.sh \
     application_yml_override.py api-setup.sh \
-    go-setup.sh \
+    go-setup.sh keep-balance.sh \
     /usr/local/lib/arvbox/
 
 ADD runit /etc/runit

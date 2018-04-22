@@ -17,7 +17,10 @@ RUN cd /usr/src && \
 
 ADD service/ /var/lib/arvbox/service
 RUN ln -sf /var/lib/arvbox/service /etc
-RUN mkdir -p /var/lib/arvados
+RUN mkdir -p /var/lib/arvados && mkdir -p /etc/arvados/keep-balance
+# update keep balance configuration
+ADD keep-balance.yml /etc/arvados/keep-balance
+
 RUN echo "production" > /var/lib/arvados/api_rails_env
 RUN echo "production" > /var/lib/arvados/sso_rails_env
 RUN echo "production" > /var/lib/arvados/workbench_rails_env
@@ -36,4 +39,5 @@ RUN sudo -u arvbox /var/lib/arvbox/service/arv-git-httpd/run-service --only-deps
 RUN sudo -u arvbox /var/lib/arvbox/service/crunch-dispatch-local/run-service --only-deps
 RUN sudo -u arvbox /var/lib/arvbox/service/websockets/run-service --only-deps
 RUN sudo -u arvbox /usr/local/lib/arvbox/keep-setup.sh --only-deps
+RUN sudo -u arvbox /usr/local/lib/arvbox/keep-balance.sh --only-deps
 RUN sudo -u arvbox /var/lib/arvbox/service/sdk/run-service
