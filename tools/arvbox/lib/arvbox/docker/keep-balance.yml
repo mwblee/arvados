@@ -1,0 +1,9 @@
+Client:
+  Insecure: true
+  APIHost: ${ARVADOS_API_HOST}
+  AuthToken: ${ARVADOS_API_TOKEN}
+KeepServiceTypes:
+  - disk
+RunPeriod: 1m
+CollectionBatchSize: 100000
+CollectionBuffers: 1000
